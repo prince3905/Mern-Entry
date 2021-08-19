@@ -1,0 +1,9 @@
+.app{
+  display: flex;
+  width: 100vw;
+  height: 100vw;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  font-family: arial,sans-serif;
+}
