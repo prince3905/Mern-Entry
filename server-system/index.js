@@ -11,16 +11,25 @@ app.use(cors())
 
 
 //connection with database
-mongoose.connect('mongodb://localhost:27017/myMernDB', {useNewUrlParser: true, useUnifiedTopology: true},()=> {console.log("DB connected")});
+mongoose.connect('mongodb://localhost:27017/myMernDB', { useNewUrlParser: true, useUnifiedTopology: true }, () => { console.log("DB connected") });
+
+
+
+//user schema
+ const userSchema =new mongoose.Schema({
+     name:String,
+     email:String,
+     password:String,
+ })    
+
+
 
 //Routes
-app.get('/' , (req, res)=>{
+app.post('/mylogin', (req, res) => { res.send('my login API') })
 
-   res.send('hello from simple server :)')
+app.post('/register', (req, res) => { res.send('my register API') })
 
-})
 
-app.listen(5000,() =>{
-    console.log("DB start at port 5000")
-})
+
+app.listen(5000, () => { console.log("DB start at port 5000") })
 
