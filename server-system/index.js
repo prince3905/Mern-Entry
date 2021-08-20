@@ -22,6 +22,9 @@ mongoose.connect('mongodb://localhost:27017/myMernDB', { useNewUrlParser: true, 
      password:String,
  })    
 
+ //user model
+ const user = new mongoose.model('user', userSchema)
+
 
 
 //Routes
