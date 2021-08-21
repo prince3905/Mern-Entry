@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import './Register.css';
-import { Card, FormGroup, FormLabel } from 'react-bootstrap';
+import { Card, FormLabel } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap'
-import { FloatingLabel } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
+
+import axios from "axios";
 
 function Register() {
 
@@ -27,9 +28,16 @@ function Register() {
     })
   }
 
-  const register = () => {
-    const { name, email, password } = user
-    console.log(user)
+  const useRregister = () => {
+    const { name, email, password, rePassword } = user
+    if(name && email && password && ( password === rePassword )){
+      console.log(user)
+      alert('its Okay')
+    axios.post('http://localhost:5000/register' ,user).then(res => console.log(res)) 
+    }else{
+      alert('Invalid Post')
+    }
+    
   }
 
   return (
@@ -38,7 +46,7 @@ function Register() {
         <Card border="warning" style={{ height: '28rem', width: '35rem', textAlign: 'center', borderRadius: '30px', boxShadow: '5px 5px black' }}>
           <Row className="justify-content-md-center">
             <Col xs lg="10">
-              <form style={{ margin: 'auto' }}>
+              
                 <Form.Group className="mb-0" controlId="formBasicEmail">
                   <FormLabel><h1>Register</h1></FormLabel>
                   <Form.Control type="name" name='name' value={user.name} onChange={handleChange} placeholder="Your Name" />
@@ -61,17 +69,17 @@ function Register() {
                 </Form.Group>
 
                 <div className="d-grid gap-2" style={{ marginTop: '10px' }}>
-                  <Button variant="primary" type="submit" size='sm' onClick={register}>
+                  <Button variant="primary" type="submit" size='sm' onClick={useRregister}>
                     Register
                   </Button>
 
-                  <h8>Or</h8>
+                  <h5>Or</h5>
 
                   <Button variant="primary" type="submit" size='sm' >
                     Login
                   </Button>
                 </div>
-              </form>
+             
             </Col>
 
           </Row>
@@ -81,8 +89,5 @@ function Register() {
   );
 }
 
-// Register.propTypes = {};
-
-// Register.defaultProps = {};
 
 export default Register;
