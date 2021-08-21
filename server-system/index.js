@@ -30,7 +30,7 @@ mongoose.connect('mongodb://localhost:27017/myMernDB', { useNewUrlParser: true, 
 //Routes
 app.post('/mylogin', (req, res) => { res.send('my login API') })
 
-app.post('/register', (req, res) => { res.send('my register API') })
+app.post('/register', (req, res) => { console.log(req.body) })
 
 
 
