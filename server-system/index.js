@@ -23,14 +23,45 @@ mongoose.connect('mongodb://localhost:27017/myMernDB', { useNewUrlParser: true, 
  })    
 
  //user model
- const user = new mongoose.model('user', userSchema)
+ const User = new mongoose.model('User', userSchema)
 
 
+//route
 
-//Routes
+// app.get('/',(req,res)=>{
+//     res.send('Root path api running..')
+// })
+ 
 app.post('/mylogin', (req, res) => { res.send('my login API') })
 
-app.post('/register', (req, res) => { console.log(req.body) })
+app.post('/register', (req, res) => {
+    console.log('my register api')
+      const {name,email,password} = req.body
+
+//here we can use the mongo findOne() function for user already exist email datas 
+      User.findOne({email:email},(err,user)=>{
+          if(user){
+              res.send({message:"User Already Register"})
+          }else{
+            const user = new User({ 
+                name,
+                email,
+                password,
+            })
+            //here we can use save() function for save the user schemas in mongodb
+             
+            user.save( err => {
+                if(err){
+                      res.send(err)
+                }else{
+                    res.send({message:'Successfully Registered, Please login now.'})
+                }
+            })
+          }
+      })      
+
+      
+    })
 
 
 
