@@ -32,10 +32,27 @@ mongoose.connect('mongodb://localhost:27017/myMernDB', { useNewUrlParser: true, 
 //     res.send('Root path api running..')
 // })
  
-app.post('/mylogin', (req, res) => { res.send('my login API') })
+app.post('/login', (req, res) => {
+    //  res.send('my login API') 
+    const{email,password} = req.body
+    //here we can use the mongo findOne() function for user login with email and password 
+    User.findOne({email:email},(err,user)=>{
+        if(user){
+            if(password === user.password ) {
+                res.send({message: "Login Successfull", user: user})
+            }else{
+                res.send({message: "Password didn't match"})
+            }
+        }else{
+            res.send({message: "User not registered"})
+        }
+    })
+    })
+
+
 
 app.post('/register', (req, res) => {
-    console.log('my register api')
+    // console.log('my register api')
       const {name,email,password} = req.body
 
 //here we can use the mongo findOne() function for user already exist email datas 
