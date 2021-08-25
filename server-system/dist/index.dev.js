@@ -62,7 +62,7 @@ app.post('/register', function (req, res) {
   var _req$body2 = req.body,
       name = _req$body2.name,
       email = _req$body2.email,
-      password = _req$body2.password; //here we can use the mongo findOne() function for user already exist email datas 
+      password = _req$body2.password; //here we can use the mongo findOne() function for user already exist email data
 
   User.findOne({
     email: email
