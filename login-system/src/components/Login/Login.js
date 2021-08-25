@@ -7,14 +7,20 @@ import { Form } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Container } from "react-bootstrap";
+import { useHistory } from "react-router-dom"
+
 
 import axios from "axios";
 
 function Login() {
+  const history = useHistory()
+
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
+  const [userInfo,setuserInfo] = useState('')
 
   const handleChange = (e) => {
     // console.log(e.target)
@@ -26,8 +32,13 @@ function Login() {
   };
 
   const userLogin = () => {
-    axios.post('http://localhost:5000/login' ,user).then(res => console.log(res)) 
-    // console.log(user);
+    axios.post('http://localhost:5000/login' ,user).then(res => {
+      let userInfo = res
+      alert(res.data.message)
+      console.log(res)
+      console.log(userInfo);
+    }) 
+    
   };
 
   return (
@@ -83,7 +94,7 @@ function Login() {
 
                 <h5>Or</h5>
 
-                <Button variant="primary" type="submit" size="sm">
+                <Button variant="primary" type="submit" size="sm" onClick={() => history.push("/register")}>
                   Register
                 </Button>
               </div>

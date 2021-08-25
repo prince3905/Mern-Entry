@@ -7,10 +7,12 @@ import { Form } from 'react-bootstrap'
 import { Col } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
+import { useHistory } from "react-router-dom"
 
 import axios from "axios";
 
 function Register() {
+  const history = useHistory()
 
   const [user, setUser] = useState({
     name: '',
@@ -32,8 +34,10 @@ function Register() {
     const { name, email, password, rePassword } = user
     if(name && email && password && ( password === rePassword )){
       console.log(user)
-      alert('its Okay')
-    axios.post('http://localhost:5000/register' ,user).then(res => console.log(res)) 
+    axios.post('http://localhost:5000/register' ,user).then(res => {
+      console.log(res)
+      alert(res.data.message)
+    }) 
     }else{
       alert('Invalid Post')
     }
@@ -42,6 +46,7 @@ function Register() {
 
   return (
     <div className="Register">
+      {console.log("User", user)}
       <Container>
         <Card border="warning" style={{ height: '28rem', width: '35rem', textAlign: 'center', borderRadius: '30px', boxShadow: '5px 5px black' }}>
           <Row className="justify-content-md-center">
@@ -75,7 +80,7 @@ function Register() {
 
                   <h5>Or</h5>
 
-                  <Button variant="primary" type="submit" size='sm' >
+                  <Button variant="primary" type="submit" size='sm' onClick={() => history.push("/login")}>
                     Login
                   </Button>
                 </div>
