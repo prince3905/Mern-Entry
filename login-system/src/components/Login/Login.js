@@ -12,15 +12,13 @@ import { useHistory } from "react-router-dom"
 
 import axios from "axios";
 
-function Login() {
+function Login({setLoginUser}) {
   const history = useHistory()
 
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-
-  const [userInfo,setuserInfo] = useState('')
 
   const handleChange = (e) => {
     // console.log(e.target)
@@ -33,9 +31,10 @@ function Login() {
 
   const userLogin = () => {
     axios.post('http://localhost:5000/login' ,user).then(res => {
-      let userInfo = res
+      const userInfo = res
       alert(res.data.message)
-      console.log(res)
+      setLoginUser (res.data.user)
+      history.push("/")
       console.log(userInfo);
     }) 
     
